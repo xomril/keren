@@ -1,0 +1,5 @@
+{
+  "source": "sample prices from the assignment PDF (not live data)",
+  "priceTimestamp": null,
+  "prices": {"BTC": "63000", "ETH": "2900", "USDC": "1"}
+}
