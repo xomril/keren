@@ -108,11 +108,12 @@ Reference results: total **$104,510.00** (BTC $53,550, ETH $35,960, USDC $15,000
 
 ## Time spent
 
-> **TO FILL IN BY THE AUTHOR.** Actual time per part, as the assignment asks. Not estimated here on purpose.
+**Total: about 4 hours** (the author's own estimate). The assignment sets a limit of 3 hours, so this **exceeded it by roughly an hour**.
+
+Part of that went beyond the core requirements: a local Hebrew chat page, a Hebrew presentation deck, and small live checks of the Anthropic adapter.
+
+> **Per-part split: TO FILL IN BY THE AUTHOR** (not estimated here on purpose).
 >
 > - Part A (architecture): ___
 > - Part B (prototype and eval): ___
 > - Part C (management answers): ___
-> - Total: ___
->
-> If the time limit was exceeded, say what was left undone.
