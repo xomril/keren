@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keren – הצגת מבחן ראש צוות AI</title>
+<style>
+:root{
+  --navy:#0b2545; --navy2:#16386b; --bg:#f4f2ec; --card:#fff; --line:#e3dfd3;
+  --text:#1b2430; --muted:#5d6675; --teal:#0f766e; --gold:#a6812f; --bad:#b42318; --warn:#9a5b00;
+  --sans:Inter,"SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,"Noto Sans Hebrew",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#0b1424;font-family:var(--sans);color:var(--text)}
+#stage{position:fixed;inset:0;overflow:hidden}
+#deck{width:1280px;height:720px;position:absolute;left:50%;top:50%;transform-origin:center center;background:var(--bg);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.slide{position:absolute;inset:0;padding:56px 72px 64px;display:none;flex-direction:column}
+.slide.on{display:flex}
+.slide::before{content:"";position:absolute;inset:0 0 auto 0;height:8px;background:var(--navy);border-bottom:3px solid var(--gold);box-sizing:content-box}
+h1{font-size:54px;line-height:1.15;margin:0 0 14px;color:var(--navy)}
+h2{font-size:38px;line-height:1.2;margin:14px 0 22px;color:var(--navy)}
+h2 small{display:block;font-size:17px;font-weight:600;color:var(--gold);margin-bottom:4px;letter-spacing:.3px}
+p,li{font-size:25px;line-height:1.5}
+ul{margin:0;padding:0 26px 0 0}
+li{margin:0 0 12px}
+.lead{font-size:30px;color:var(--muted);margin:0 0 28px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;min-height:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(11,37,69,.05)}
+.card h3{margin:0 0 14px;font-size:26px;color:var(--navy)}
+.card p,.card li{font-size:25px;margin:0 0 12px}
+.quote{background:var(--navy);color:#fff;border-radius:16px;padding:30px 36px;font-size:34px;line-height:1.45;border-inline-start:8px solid var(--gold)}
+.quote b{color:#f4e4b8}
+.tag{display:inline-block;font:600 17px var(--sans);padding:3px 12px;border-radius:999px;margin-inline-end:8px}
+.t-ok{background:#e6f4f1;color:var(--teal)} .t-warn{background:#fff4e0;color:var(--warn)} .t-bad{background:#fdecea;color:var(--bad)}
+.num{font:700 44px var(--sans);color:var(--navy)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:6px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px}
+.kpi .l{font-size:18px;color:var(--muted)} .kpi .n{font:700 40px var(--sans);color:var(--navy);direction:ltr;text-align:right}
+.kpi .s{font-size:17px;color:var(--muted);margin-top:4px}
+table{border-collapse:collapse;width:100%;font-size:25px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:16px 20px;text-align:start;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#eef0f4;color:var(--navy);font-size:21px}
+tr:last-child td{border-bottom:0}
+.img{flex:1;min-height:0;background:#fff;border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;padding:8px}
+
+.demo li{font-size:28px}
+.mono{direction:ltr;unicode-bidi:isolate;font:600 .85em ui-monospace,Menlo,monospace;background:#eef0f4;border-radius:6px;padding:1px 8px}
+.foot{position:absolute;inset-inline:72px;bottom:22px;display:flex;justify-content:space-between;font-size:15px;color:var(--muted)}
+.notes{position:absolute;inset:auto 0 0 0;background:rgba(11,37,69,.96);color:#fff;padding:18px 72px 22px;font-size:20px;line-height:1.5;display:none;max-height:42%;overflow:auto;z-index:5}
+.show-notes .notes{display:block}
+#bar{position:fixed;inset:auto 0 0 0;height:4px;background:rgba(255,255,255,.12)}
+#bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .2s;margin-inline-start:0}
+#hint{position:fixed;inset:auto auto 10px 12px;color:#8a97ad;font-size:13px}
+@media print{
+  html,body{background:#fff;height:auto}
+  #stage{position:static;display:block}
+  #deck{transform:none!important;position:static!important;width:auto;height:auto;box-shadow:none;overflow:visible}
+  .slide{position:relative;display:flex!important;width:1280px;height:720px;page-break-after:always}
+  .notes,#bar,#hint{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="stage"><div id="deck">
+
+<!-- 0 title -->
+<section class="slide on">
+  <div style="margin:auto 0">
+    <div class="tag t-warn">מבחן בית · ראש צוות AI</div>
+    <h1>עוזר AI למנהלי תיקים:<br>מקוד אחד אמין, לא מהמודל</h1>
+    <p class="lead">אב-טיפוס, ארכיטקטורת ייצור (React · <bdi dir="ltr">.NET Core</bdi> · AWS), והחלטות ניהול</p>
+    <p style="font-size:20px;color:var(--muted)">[שם המציג]</p>
+  </div>
+  <div class="notes">פתיחה קצרה. הציגו את עצמכם ואת מבנה ה-15 דקות: בעיה, ארכיטקטורה, הדגמה, הערכה, סיכונים וניהול.</div>
+</section>
+
+<!-- 1 problem -->
+<section class="slide">
+  <h2><small>1 · הבעיה</small>עוזר פנימי בסביבה פיננסית מפוקחת</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>שלושה אילוצים קשיחים</h3>
+      <ul>
+        <li>אסור להמליץ לקנות/למכור או לתת ייעוץ אישי. מפנים ליועץ מוסמך.</li>
+        <li>כל מספר מגיע ממערכות המקור או מחישוב דטרמיניסטי, לא מהמודל.</li>
+        <li>כל תשובה מבוססת מסמכים ומצטטת מקור.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>הנתונים והצוות</h3>
+      <ul>
+        <li>משתמשים: מנהלי תיקים פנימיים, בשלב ראשון.</li>
+        <li>סביבה: React, <bdi dir="ltr">.NET Core</bdi> WebAPI, AWS.</li>
+        <li>צוות: 4 מפתחי <bdi dir="ltr">.NET</bdi>, בלי ניסיון קודם במוצרי AI.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="notes">לחזור על הנקודה: זו לא בעיית "איך להשתמש במודל" אלא "איך להשתמש בו בלי שיוכל לגרום נזק". שלושת האילוצים הם מה שמעצב את כל ההחלטות.</div>
+</section>
+
+<!-- 2 principle -->
+<section class="slide">
+  <h2><small>2 · עיקרון התכנון</small>המודל הוא רכיב קטן ומוגבל</h2>
+  <div class="quote">הקוד מחליט <b>מי רואה מה</b> ומחשב <b>כל מספר</b>.<br>המודל רק <b>מסווג</b> את השאלה, ולכל היותר כותב משפט קצר ש<b>הקוד בודק</b>.</div>
+  <div class="cols" style="margin-top:28px">
+    <div class="card"><h3>אם המודל נופל</h3><p>מורידים אותו, והמערכת עדיין עונה נכון מתבניות.</p></div>
+    <div class="card"><h3>אם מישהו מזריק הוראה</h3><p>אין למודל כלים, מזהה לקוח או הרשאות לנצל.</p></div>
+  </div>
+  <div class="notes">זה המשפט שחוזר בכל השקפים. אם שואלים "למה לא סוכן?" או "למה לא MCP?", התשובה כאן.</div>
+</section>
+
+<!-- 3 architecture -->
+<section class="slide">
+  <h2 style="margin-bottom:12px"><small>3 · ארכיטקטורת ייצור</small>צינור של 8 שלבים ב-<bdi dir="ltr">.NET Core</bdi></h2>
+  <div class="img"><svg style="direction:ltr;max-width:100%;max-height:100%;width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs>
+<rect width="1200" height="800" fill="#ffffff"/>
+<text x="30" y="26" font-size="17" font-weight="bold" fill="#111">Keren AI assistant: production architecture (React / .NET Core / AWS)</text>
+<rect x="30" y="60" width="190" height="80" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="40" y="80" font-size="12" font-weight="bold" fill="#111">React SPA</text>
+<text x="40" y="97" font-size="10.5" fill="#333">Portfolio manager (internal only)</text>
+<rect x="30" y="200" width="190" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="40" y="220" font-size="12" font-weight="bold" fill="#111">CloudFront + WAF</text>
+<text x="40" y="237" font-size="10.5" fill="#333">TLS, rate limits, bot rules</text>
+<rect x="30" y="310" width="190" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="40" y="339.0" font-size="12" font-weight="bold" fill="#111">S3 static assets</text>
+<path d="M125,140 L125,200" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M125,260 L125,310" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="30" y="420" width="190" height="170" rx="6" fill="#fff8e6" stroke="#c9a227" stroke-dasharray="4 3"/>
+<text x="40" y="442" font-size="11" fill="#333" font-weight="bold">Prototype in this repo:</text>
+<text x="40" y="460" font-size="11" fill="#333">Python CLI + local demo page</text>
+<text x="40" y="478" font-size="11" fill="#333">1-7 locally (lexical retrieval,</text>
+<text x="40" y="496" font-size="11" fill="#333">fake or Anthropic model).</text>
+<text x="40" y="514" font-size="11" fill="#333">No DB, no vector index,</text>
+<text x="40" y="532" font-size="11" fill="#333">no Bedrock, no deploy.</text>
+<text x="40" y="550" font-size="11" fill="#333"></text>
+<rect x="260" y="40" width="920" height="610" rx="10" fill="none" stroke="#777" stroke-dasharray="6 4"/>
+<text x="272" y="58" font-size="11" fill="#555">AWS account / VPC: private subnets, VPC endpoints, no public data stores</text>
+<rect x="280" y="200" width="160" height="70" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="290" y="220" font-size="12" font-weight="bold" fill="#111">ALB / API Gateway</text>
+<text x="290" y="237" font-size="10.5" fill="#333">validates JWT, WAF-fronted</text>
+<rect x="280" y="300" width="160" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="290" y="320" font-size="12" font-weight="bold" fill="#111">Cognito / corp OIDC</text>
+<text x="290" y="337" font-size="10.5" fill="#333">issues manager JWT</text>
+<path d="M220,235 L280,235" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M360,300 L360,270" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="470" y="70" width="340" height="550" rx="8" fill="#f7f9fc" stroke="#4a6fa5"/>
+<text x="482" y="90" font-size="13" font-weight="bold" fill="#111">.NET Core WebAPI (ECS Fargate): assistant pipeline</text>
+<path d="M440,235 L470,235" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="110" width="310" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+<text x="495" y="130" font-size="12" font-weight="bold" fill="#111">1  AuthN/Z (before any data)</text>
+<text x="495" y="147" font-size="10.5" fill="#333">server-side manager to customer entitlement</text>
+<path d="M640,160 L640,170" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="170" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="190" font-size="12" font-weight="bold" fill="#111">2  Input gate</text>
+<text x="495" y="207" font-size="10.5" fill="#333">advice / injection screen: rules + Bedrock Guardrails</text>
+<path d="M640,220 L640,230" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="230" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="250" font-size="12" font-weight="bold" fill="#111">3  Intent router (LLM)</text>
+<text x="495" y="267" font-size="10.5" fill="#333">JSON intent only; never sees or picks customerId</text>
+<path d="M640,280 L640,290" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="290" width="310" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+<text x="495" y="310" font-size="12" font-weight="bold" fill="#111">4  Deterministic tools (C#)</text>
+<text x="495" y="327" font-size="10.5" fill="#333">get_portfolio, get_prices, decimal value / exposure / fees</text>
+<path d="M640,340 L640,350" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="350" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="370" font-size="12" font-weight="bold" fill="#111">5  Retrieval</text>
+<text x="495" y="387" font-size="10.5" fill="#333">ACL-filtered chunks, stable source IDs</text>
+<path d="M640,400 L640,410" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="410" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="430" font-size="12" font-weight="bold" fill="#111">6  Composer (LLM)</text>
+<text x="495" y="447" font-size="10.5" fill="#333">prose with number placeholders; docs = data, not instructions</text>
+<path d="M640,460 L640,470" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="470" width="310" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+<text x="495" y="490" font-size="12" font-weight="bold" fill="#111">7  Output validator</text>
+<text x="495" y="507" font-size="10.5" fill="#333">numbers match tool facts, IDs match retrieval</text>
+<path d="M640,520 L640,530" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="530" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="550" font-size="12" font-weight="bold" fill="#111">8  Audit + metrics</text>
+<text x="495" y="567" font-size="10.5" fill="#333">who, customer, tools, source IDs, latency</text>
+<rect x="870" y="110" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="130" font-size="12" font-weight="bold" fill="#111">Aurora PostgreSQL</text>
+<text x="880" y="147" font-size="10.5" fill="#333">entitlements</text>
+<rect x="870" y="170" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="190" font-size="12" font-weight="bold" fill="#111">Bedrock Guardrails</text>
+<text x="880" y="207" font-size="10.5" fill="#333">input / output policy filters</text>
+<rect x="870" y="230" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="250" font-size="12" font-weight="bold" fill="#111">Bedrock: Claude (router)</text>
+<text x="880" y="267" font-size="10.5" fill="#333">low-cost model, timeouts, fallback</text>
+<rect x="870" y="290" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="310" font-size="12" font-weight="bold" fill="#111">Aurora + pricing feed</text>
+<text x="880" y="327" font-size="10.5" fill="#333">portfolios; timestamped prices</text>
+<rect x="870" y="350" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="370" font-size="12" font-weight="bold" fill="#111">Search index</text>
+<text x="880" y="387" font-size="10.5" fill="#333">OpenSearch / pgvector + ACL metadata</text>
+<rect x="870" y="410" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="430" font-size="12" font-weight="bold" fill="#111">Bedrock: Claude (composer)</text>
+<text x="880" y="447" font-size="10.5" fill="#333">pinned model version</text>
+<rect x="870" y="470" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="490" font-size="12" font-weight="bold" fill="#111">S3 knowledge docs + ingest</text>
+<text x="880" y="507" font-size="10.5" fill="#333">chunk, embed, version, source IDs</text>
+<rect x="870" y="545" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="565" font-size="12" font-weight="bold" fill="#111">Audit log + CloudWatch</text>
+<text x="880" y="582" font-size="10.5" fill="#333">S3 Object Lock, X-Ray / OTel traces</text>
+<path d="M795,135 L870,135" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,195 L870,195" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,255 L870,255" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,315 L870,315" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,375 L870,375" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,435 L870,435" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,570 L870,570" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M1130,495 L1155,495 L1155,375 L1130,375" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<text x="272" y="676" font-size="11" fill="#555">Platform and governance</text>
+<rect x="270" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="280" y="705" font-size="12" font-weight="bold" fill="#111">Observability</text>
+<text x="280" y="722" font-size="10.5" fill="#333">dashboards + alarms: latency,</text>
+<text x="280" y="736" font-size="10.5" fill="#333">refusal rate, validator fallbacks,</text>
+<text x="280" y="750" font-size="10.5" fill="#333">token cost</text>
+<rect x="498" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="508" y="705" font-size="12" font-weight="bold" fill="#111">Secrets and keys</text>
+<text x="508" y="722" font-size="10.5" fill="#333">KMS, Secrets Manager,</text>
+<text x="508" y="736" font-size="10.5" fill="#333">least-privilege IAM; no keys in</text>
+<text x="508" y="750" font-size="10.5" fill="#333">code</text>
+<rect x="726" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="736" y="705" font-size="12" font-weight="bold" fill="#111">CI/CD eval gate</text>
+<text x="736" y="722" font-size="10.5" fill="#333">golden set on every prompt / model</text>
+<text x="736" y="736" font-size="10.5" fill="#333">/ doc change; block on failure</text>
+<rect x="954" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="964" y="705" font-size="12" font-weight="bold" fill="#111">Degradation</text>
+<text x="964" y="722" font-size="10.5" fill="#333">model down: templated numeric</text>
+<text x="964" y="736" font-size="10.5" fill="#333">answers, no free text</text>
+<text x="30" y="790" font-size="10" fill="#555">Green = deterministic, authoritative steps. Blue = steps involving a model or retrieval. Flow: browser to API to steps 1-8; the model never holds data access or authority over numbers.</text>
+<rect x="280" y="85" width="160" height="92" rx="6" fill="#fdecea" stroke="#c0392b"/>
+<text x="290" y="105" font-size="12" font-weight="bold" fill="#111">Advice request: refuse</text>
+<text x="290" y="123" font-size="10.5" fill="#333">fixed template, no model text,</text>
+<text x="290" y="137" font-size="10.5" fill="#333">refer to a licensed adviser.</text>
+<text x="290" y="155" font-size="10.5" fill="#333">Models and tools skipped.</text>
+<path d="M485,195 L455,195 L455,131 L440,131" fill="none" stroke="#c0392b" stroke-width="1.6" marker-end="url(#ar)"/>
+</svg></div>
+  <div class="foot"><span>ירוק = דטרמיניסטי · כחול = מודל או חיפוש</span><span>הרשאה לפני כל גישה לנתונים · שער ייעוץ לפני המודל</span></div>
+  <div class="notes">עוברים על הזרימה: דפדפן, CloudFront/WAF, Cognito, ה-WebAPI. מצביעים על ארבעה דברים: (1) הרשאה לפני נתונים, (2) שער ייעוץ לפני המודל, (4) כלים דטרמיניסטיים ב-C#, (7) ולידטור פלט. המסלול הצדדי האדום הוא הסירוב.</div>
+</section>
+
+<!-- 4 decisions -->
+<section class="slide">
+  <h2><small>4 · החלטות מפתח</small>מה בונים, מה קונים, ומה לא עושים</h2>
+  <table>
+    <tr><th>נושא</th><th>החלטה</th><th>למה</th></tr>
+    <tr><td>MCP</td><td>לא בליבה</td><td>שתי פונקציות בשירות אחד. אפשר לעטוף אותן אחר כך, עם הרשאה לפי זהות הקורא.</td></tr>
+    <tr><td>סוכן או צינור</td><td>צינור קבוע</td><td>סוגי השאלות מעטים וידועים. סוכן מוסיף latency, עלות ושטח תקיפה.</td></tr>
+    <tr><td>Buy</td><td>Bedrock, אינדקס, Guardrails</td><td>תשתית שאין סיבה לבנות. Guardrails כשכבה נוספת בלבד.</td></tr>
+    <tr><td>Build</td><td>הרשאות, מספרים, ולידטור, eval</td><td>זו הלוגיקה העסקית ותיק הבטיחות. חייבת להיות דטרמיניסטית ושלנו.</td></tr>
+  </table>
+  <div class="notes">עיקרון: קונים תשתית לא מבדלת, בונים את מה שמחליט מי רואה מה, מה המספרים אומרים, ומה מותר לענות.</div>
+</section>
+
+<!-- 5 demo -->
+<section class="slide">
+  <h2><small>5 · הדגמה חיה</small>אב-טיפוס, מצב לא מקוון</h2>
+  <div class="cols">
+    <div class="card demo">
+      <ul>
+        <li>שווי תיק: <span class="mono">$104,510.00</span></li>
+        <li>חשיפה ל-BTC: <span class="mono">51.2391%</span> מול 60%</li>
+        <li>עמלה רבעונית: <span class="mono">$209.02</span> (הערכה)</li>
+        <li>"לקנות ETH עכשיו?" ← סירוב</li>
+        <li>לקוח <span class="mono">C-2000</span> ← אין גישה</li>
+        <li>הזרקת הוראות ← סירוב</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>מה לשים לב אליו</h3>
+      <ul>
+        <li>תגיות מקור: <span class="mono">tool:get_portfolio</span>, <span class="mono">KB-001#1</span></li>
+        <li>"אין זה מידע בזמן אמת": למחירים אין חותמת זמן</li>
+        <li>השער פועל לפני כל קריאה למודל</li>
+        <li>בגישה נדחית, אפס קריאות נתונים</li>
+      </ul>
+      <p style="margin-top:14px"><span class="tag t-warn">לא מקוון: מודל דמה, בלי עלות</span></p>
+    </div>
+  </div>
+  <div class="notes">להריץ: python -m keren.web ולפתוח 127.0.0.1:8000. סדר: שווי, חשיפה, עמלה, ייעוץ, לקוח אחר, הזרקה. אם משהו נשבר, ממשיכים בטרמינל עם python -m keren C-1042 "...". לומר בגלוי שהמודל לא מקוון הוא דמה.</div>
+</section>
+
+<!-- 6 eval -->
+<section class="slide">
+  <h2><small>6 · הערכה (eval)</small>13 מקרים, בדיקות דטרמיניסטיות</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="l">מקרים</div><div class="n">13 / 13</div><div class="s">7 חובה · 2 מקוריים · 4 נוספים</div></div>
+    <div class="kpi"><div class="l">בדיקות יחידה</div><div class="n">34</div><div class="s">בלי רשת ובלי מפתח</div></div>
+    <div class="kpi"><div class="l">כישלון</div><div class="n">exit 1</div><div class="s">הוכחתי: שיבוש העמלה מפיל את הבדיקה</div></div>
+  </div>
+  <div class="cols" style="margin-top:24px">
+    <div class="card"><h3>מה נבדק</h3><ul><li>סטטוס ומספרים מדויקים</li><li>טקסט נדרש ואסור, מקורות מצוטטים</li><li>אפס קריאות מודל ונתונים בסירוב ובדחיית גישה</li></ul></div>
+    <div class="card"><h3>שני המקרים המקוריים</h3><ul><li>מחיר חסר ← שגיאה, לא סכום חלקי</li><li>הזרקה בתוך מסמך שאוחזר ← המסמך בהסגר</li></ul></div>
+  </div>
+  <div class="notes">הערכים הצפויים הגיעו מהמסמך (104,510; 51.2391%; 209.02), לא מהקוד. בלי שופט LLM. האזהרה: המודל במצב לא מקוון הוא דמה, אז זה מוכיח את השערים והמספרים, לא התנהגות מודל אמיתי.</div>
+</section>
+
+<!-- 7 honesty + risks -->
+<section class="slide">
+  <h2><small>7 · כנות וסיכונים</small>מה מומש, מה מתוכנן, ומה מסוכן</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>מומש ונבדק לא מקוון</h3>
+      <p><span class="tag t-ok">נבדק</span> הרשאה, שער ייעוץ, נתב, חיפוש, כלים, ולידטור</p>
+      <p><span class="tag t-warn">ידני</span> מתאם Anthropic (Haiku): כמה קריאות קטנות בלבד</p>
+      <p><span class="tag t-bad">מתוכנן בלבד</span> Cognito, Aurora, Bedrock, OpenSearch, audit, CI</p>
+    </div>
+    <div class="card">
+      <h3>שלושה סיכונים עיקריים</h3>
+      <ul>
+        <li>דליפת ייעוץ בניסוח חופשי</li>
+        <li>נתון שגוי או ישן שמוצג כסמכותי</li>
+        <li>חשיפה בין לקוחות, או סחף שקט בהתנהגות</li>
+      </ul>
+    </div>
+  </div>
+  <div class="notes">לומר: גילוי הייעוץ מבוסס כללים, נוטה לסרב אבל עלול לפספס ניסוח עקיף ושפות אחרות. הוולידטור מחמיר ויזרוק משפט נכון שמעגל מספר. הממשק המקומי הוא HTML להדגמה, לא React.</div>
+</section>
+
+<!-- 8 management + AI use -->
+<section class="slide">
+  <h2><small>8 · ניהול ו-AI בפיתוח</small>תוכנית 90 יום, ושימוש בכלי AI</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>90 יום: בטיחות ו-eval קודם</h3>
+      <ul>
+        <li>ימים 1-30: יסודות, מערך זהב, שער CI</li>
+        <li>31-60: פיילוט בצל, עם בדיקה אנושית</li>
+        <li>61-90: השקה מוגבלת, פנימית בלבד</li>
+        <li>הצלחה: go/no-go כתוב להשקה ללקוחות</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>איך השתמשתי ב-AI</h3>
+      <ul>
+        <li>נבנה בעזרת Claude Code, באבני דרך שאישרתי</li>
+        <li>הרצתי בדיקות ו-eval ובדקתי את ערכי הייחוס</li>
+        <li>לא ביקרתי ידנית כל שורה</li>
+        <li>זמן בפועל: <b>[להשלים]</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="notes">חלק ג' הוא עמדות ותוכניות, לא טענות על ניסיון עבר. אם יש דוגמה אמיתית מהעבודה שלכם, להוסיף בעל פה. לא להמציא זמן: למלא את המספר האמיתי.</div>
+</section>
+
+<!-- 9 close -->
+<section class="slide">
+  <div style="margin:auto 0">
+    <h1>סיכום</h1>
+    <ul style="font-size:30px">
+      <li>הקוד מחליט ומחשב. המודל מסווג ומנסח, ונבדק.</li>
+      <li>נפילת המודל לא משנה את נכונות המספרים.</li>
+      <li>מה מומש מול מה מתוכנן: מפורט ב-README.</li>
+    </ul>
+    <p class="lead" style="margin-top:24px">שאלות?</p>
+  </div>
+  <div class="notes">סיום וחזרה למשפט המנחה. עוברים לשאלות (30 דקות).</div>
+</section>
+
+</div></div>
+<div id="bar"><i></i></div>
+<div id="hint">חצים · רווח · N להערות · F מסך מלא · הדפסה ל-PDF</div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll(".slide")), i=0, deck=document.getElementById("deck");
+  function fit(){var s=Math.min(innerWidth/1280,innerHeight/720); deck.style.transform="translate(-50%,-50%) scale("+s+")"}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle("on",k===i)});
+    document.querySelector("#bar i").style.width=((i+1)/slides.length*100)+"%";
+    try{history.replaceState(null,"","#"+(i+1))}catch(e){}
+  }
+  addEventListener("resize",fit); fit();
+  setTimeout(function(){var h=document.getElementById("hint"); if(h) h.style.display="none"},6000);
+  addEventListener("keydown",function(e){
+    var k=e.key;
+    if(k===" "||k==="PageDown"||k==="Enter"||k==="ArrowLeft"||k==="ArrowDown"){e.preventDefault();show(i+1)}
+    else if(k==="PageUp"||k==="ArrowRight"||k==="ArrowUp"||k==="Backspace"){e.preventDefault();show(i-1)}
+    else if(k==="Home")show(0); else if(k==="End")show(slides.length-1);
+    else if(k==="n"||k==="N"||k==="נ")document.body.classList.toggle("show-notes");
+    else if(k==="f"||k==="F"){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  });
+  deck.addEventListener("click",function(e){var r=deck.getBoundingClientRect(); show(e.clientX<r.left+r.width/2?i+1:i-1)});
+  var h=parseInt(location.hash.slice(1),10); if(h) show(h-1); else show(0);
+})();
+</script>
+</body>
+</html>
