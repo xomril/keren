@@ -1,0 +1,14 @@
+[
+  {"id": "KB-001", "title": "Investment policy (מדיניות השקעות)",
+   "text": "בפרופיל סיכון בינוני, נכס בודד שאינו מטבע יציב לא יעלה על 60% משווי התיק הדיגיטלי.",
+   "keywords": "investment policy exposure concentration limit single asset risk profile medium stablecoin 60% מדיניות השקעות חשיפה ריכוז חורגת חורג מגבלה נכס סיכון"},
+  {"id": "KB-002", "title": "Management fees (דמי ניהול)",
+   "text": "דמי ניהול: 0.8% בשנה משווי הנכסים הדיגיטליים, נגבים רבעונית.",
+   "keywords": "management fee fees quarterly annual billing charge cost דמי ניהול עמלה רבעון רבעונית שנה חיוב"},
+  {"id": "KB-003", "title": "Recommendation policy (מדיניות ייעוץ)",
+   "text": "העוזר אינו ממליץ על פעולות. לשאלות מסוג \"כדאי לי לקנות/למכור\" יש להפנות ליועץ מורשה.",
+   "keywords": "recommendation advice advise buy sell invest licensed adviser should המלצה ייעוץ יועץ מורשה קנייה מכירה לקנות למכור כדאי"},
+  {"id": "KB-004", "title": "Market review, September 2026, fictional (סקירת שוק)",
+   "text": "סקירת שוק, ספטמבר 2026 (פיקטיבית): התנודתיות של ETH עלתה ברבעון האחרון, נפחי המסחר במטבעות יציבים נשארו יציבים.",
+   "keywords": "market review volatility ETH stablecoin trading volumes September 2026 quarter סקירת שוק תנודתיות מסחר נפחי מטבעות יציבים"}
+]

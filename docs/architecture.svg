@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs>
+<rect width="1200" height="800" fill="#ffffff"/>
+<text x="30" y="26" font-size="17" font-weight="bold" fill="#111">Keren AI assistant: production architecture (React / .NET Core / AWS)</text>
+<rect x="30" y="60" width="190" height="80" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="40" y="80" font-size="12" font-weight="bold" fill="#111">React SPA</text>
+<text x="40" y="97" font-size="10.5" fill="#333">Portfolio manager (internal only)</text>
+<rect x="30" y="200" width="190" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="40" y="220" font-size="12" font-weight="bold" fill="#111">CloudFront + WAF</text>
+<text x="40" y="237" font-size="10.5" fill="#333">TLS, rate limits, bot rules</text>
+<rect x="30" y="310" width="190" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="40" y="339.0" font-size="12" font-weight="bold" fill="#111">S3 static assets</text>
+<path d="M125,140 L125,200" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M125,260 L125,310" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="30" y="420" width="190" height="170" rx="6" fill="#fff8e6" stroke="#c9a227" stroke-dasharray="4 3"/>
+<text x="40" y="442" font-size="11" fill="#333" font-weight="bold">Prototype in this repo:</text>
+<text x="40" y="460" font-size="11" fill="#333">Python CLI + local demo page</text>
+<text x="40" y="478" font-size="11" fill="#333">1-7 locally (lexical retrieval,</text>
+<text x="40" y="496" font-size="11" fill="#333">fake or Anthropic model).</text>
+<text x="40" y="514" font-size="11" fill="#333">No DB, no vector index,</text>
+<text x="40" y="532" font-size="11" fill="#333">no Bedrock, no deploy.</text>
+<text x="40" y="550" font-size="11" fill="#333"></text>
+<rect x="260" y="40" width="920" height="610" rx="10" fill="none" stroke="#777" stroke-dasharray="6 4"/>
+<text x="272" y="58" font-size="11" fill="#555">AWS account / VPC: private subnets, VPC endpoints, no public data stores</text>
+<rect x="280" y="200" width="160" height="70" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="290" y="220" font-size="12" font-weight="bold" fill="#111">ALB / API Gateway</text>
+<text x="290" y="237" font-size="10.5" fill="#333">validates JWT, WAF-fronted</text>
+<rect x="280" y="300" width="160" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="290" y="320" font-size="12" font-weight="bold" fill="#111">Cognito / corp OIDC</text>
+<text x="290" y="337" font-size="10.5" fill="#333">issues manager JWT</text>
+<path d="M220,235 L280,235" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M360,300 L360,270" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="470" y="70" width="340" height="550" rx="8" fill="#f7f9fc" stroke="#4a6fa5"/>
+<text x="482" y="90" font-size="13" font-weight="bold" fill="#111">.NET Core WebAPI (ECS Fargate): assistant pipeline</text>
+<path d="M440,235 L470,235" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="110" width="310" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+<text x="495" y="130" font-size="12" font-weight="bold" fill="#111">1  AuthN/Z (before any data)</text>
+<text x="495" y="147" font-size="10.5" fill="#333">server-side manager to customer entitlement</text>
+<path d="M640,160 L640,170" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="170" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="190" font-size="12" font-weight="bold" fill="#111">2  Input gate</text>
+<text x="495" y="207" font-size="10.5" fill="#333">advice / injection screen: rules + Bedrock Guardrails</text>
+<path d="M640,220 L640,230" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="230" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="250" font-size="12" font-weight="bold" fill="#111">3  Intent router (LLM)</text>
+<text x="495" y="267" font-size="10.5" fill="#333">JSON intent only; never sees or picks customerId</text>
+<path d="M640,280 L640,290" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="290" width="310" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+<text x="495" y="310" font-size="12" font-weight="bold" fill="#111">4  Deterministic tools (C#)</text>
+<text x="495" y="327" font-size="10.5" fill="#333">get_portfolio, get_prices, decimal value / exposure / fees</text>
+<path d="M640,340 L640,350" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="350" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="370" font-size="12" font-weight="bold" fill="#111">5  Retrieval</text>
+<text x="495" y="387" font-size="10.5" fill="#333">ACL-filtered chunks, stable source IDs</text>
+<path d="M640,400 L640,410" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="410" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="430" font-size="12" font-weight="bold" fill="#111">6  Composer (LLM)</text>
+<text x="495" y="447" font-size="10.5" fill="#333">prose with number placeholders; docs = data, not instructions</text>
+<path d="M640,460 L640,470" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="470" width="310" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+<text x="495" y="490" font-size="12" font-weight="bold" fill="#111">7  Output validator</text>
+<text x="495" y="507" font-size="10.5" fill="#333">numbers match tool facts, IDs match retrieval</text>
+<path d="M640,520 L640,530" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="485" y="530" width="310" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="495" y="550" font-size="12" font-weight="bold" fill="#111">8  Audit + metrics</text>
+<text x="495" y="567" font-size="10.5" fill="#333">who, customer, tools, source IDs, latency</text>
+<rect x="870" y="110" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="130" font-size="12" font-weight="bold" fill="#111">Aurora PostgreSQL</text>
+<text x="880" y="147" font-size="10.5" fill="#333">entitlements</text>
+<rect x="870" y="170" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="190" font-size="12" font-weight="bold" fill="#111">Bedrock Guardrails</text>
+<text x="880" y="207" font-size="10.5" fill="#333">input / output policy filters</text>
+<rect x="870" y="230" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="250" font-size="12" font-weight="bold" fill="#111">Bedrock: Claude (router)</text>
+<text x="880" y="267" font-size="10.5" fill="#333">low-cost model, timeouts, fallback</text>
+<rect x="870" y="290" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="310" font-size="12" font-weight="bold" fill="#111">Aurora + pricing feed</text>
+<text x="880" y="327" font-size="10.5" fill="#333">portfolios; timestamped prices</text>
+<rect x="870" y="350" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="370" font-size="12" font-weight="bold" fill="#111">Search index</text>
+<text x="880" y="387" font-size="10.5" fill="#333">OpenSearch / pgvector + ACL metadata</text>
+<rect x="870" y="410" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="430" font-size="12" font-weight="bold" fill="#111">Bedrock: Claude (composer)</text>
+<text x="880" y="447" font-size="10.5" fill="#333">pinned model version</text>
+<rect x="870" y="470" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="490" font-size="12" font-weight="bold" fill="#111">S3 knowledge docs + ingest</text>
+<text x="880" y="507" font-size="10.5" fill="#333">chunk, embed, version, source IDs</text>
+<rect x="870" y="545" width="260" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5"/>
+<text x="880" y="565" font-size="12" font-weight="bold" fill="#111">Audit log + CloudWatch</text>
+<text x="880" y="582" font-size="10.5" fill="#333">S3 Object Lock, X-Ray / OTel traces</text>
+<path d="M795,135 L870,135" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,195 L870,195" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,255 L870,255" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,315 L870,315" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,375 L870,375" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,435 L870,435" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M795,570 L870,570" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M1130,495 L1155,495 L1155,375 L1130,375" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#ar)"/>
+<text x="272" y="676" font-size="11" fill="#555">Platform and governance</text>
+<rect x="270" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="280" y="705" font-size="12" font-weight="bold" fill="#111">Observability</text>
+<text x="280" y="722" font-size="10.5" fill="#333">dashboards + alarms: latency,</text>
+<text x="280" y="736" font-size="10.5" fill="#333">refusal rate, validator fallbacks,</text>
+<text x="280" y="750" font-size="10.5" fill="#333">token cost</text>
+<rect x="498" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="508" y="705" font-size="12" font-weight="bold" fill="#111">Secrets and keys</text>
+<text x="508" y="722" font-size="10.5" fill="#333">KMS, Secrets Manager,</text>
+<text x="508" y="736" font-size="10.5" fill="#333">least-privilege IAM; no keys in</text>
+<text x="508" y="750" font-size="10.5" fill="#333">code</text>
+<rect x="726" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="736" y="705" font-size="12" font-weight="bold" fill="#111">CI/CD eval gate</text>
+<text x="736" y="722" font-size="10.5" fill="#333">golden set on every prompt / model</text>
+<text x="736" y="736" font-size="10.5" fill="#333">/ doc change; block on failure</text>
+<rect x="954" y="685" width="212" height="90" rx="6" fill="#f3f0fa" stroke="#7b5ea7"/>
+<text x="964" y="705" font-size="12" font-weight="bold" fill="#111">Degradation</text>
+<text x="964" y="722" font-size="10.5" fill="#333">model down: templated numeric</text>
+<text x="964" y="736" font-size="10.5" fill="#333">answers, no free text</text>
+<text x="30" y="790" font-size="10" fill="#555">Green = deterministic, authoritative steps. Blue = steps involving a model or retrieval. Flow: browser to API to steps 1-8; the model never holds data access or authority over numbers.</text>
+<rect x="280" y="85" width="160" height="92" rx="6" fill="#fdecea" stroke="#c0392b"/>
+<text x="290" y="105" font-size="12" font-weight="bold" fill="#111">Advice request: refuse</text>
+<text x="290" y="123" font-size="10.5" fill="#333">fixed template, no model text,</text>
+<text x="290" y="137" font-size="10.5" fill="#333">refer to a licensed adviser.</text>
+<text x="290" y="155" font-size="10.5" fill="#333">Models and tools skipped.</text>
+<path d="M485,195 L455,195 L455,131 L440,131" fill="none" stroke="#c0392b" stroke-width="1.6" marker-end="url(#ar)"/>
+</svg>
