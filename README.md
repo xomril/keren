@@ -87,7 +87,7 @@ Reference results: total **$104,510.00** (BTC $53,550, ETH $35,960, USDC $15,000
 | Access check, advice gate, router with fallback, retrieval with quarantine, tools, templates, validator, fake model, CLI, eval | **Implemented**, tested **offline** (34 unit tests, 13 eval cases) |
 | Anthropic adapter (Haiku) and its prompts | **Implemented**; **live-tested only manually**, with a few small calls (router, short summary, UI check). **Not** covered by the automated eval |
 | Local Hebrew chat page | **Implemented** for demonstration. It is plain HTML, not the React front end. The assignment brief did not ask for a UI |
-| Cognito/OIDC, Aurora, Bedrock and Guardrails, OpenSearch/pgvector, S3 ingest, audit store, CloudWatch/X-Ray, CI gate | **Designed only** (Part A). Nothing deployed |
+| Cognito/OIDC, Aurora, Bedrock and Guardrails, OpenSearch/pgvector, S3 ingest, audit store, CloudWatch/X-Ray, CI eval gate | **Designed only** (Part A). Nothing deployed |
 
 ## Known gaps and what production needs
 

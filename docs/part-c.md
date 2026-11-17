@@ -6,12 +6,12 @@ Draft written from the stances chosen by the author. Everything here is a plan o
 
 **Principle: safety and evaluation first.** The team is four .NET developers with no AI-product experience, so the first risk is not the model, it is that nobody can yet tell whether the system is right.
 
-- **Days 1-30, foundations.** Shared vocabulary (RAG, guardrails, eval, prompt injection) through short working sessions on the prototype, not lectures. Agree with compliance on what "advice" means and who signs off. Build the golden set (the 13-case set is the seed) and the CI gate. Ship the deterministic parts first: entitlements, tools, number maths, templates.
+- **Days 1-30, foundations.** Shared vocabulary (RAG, guardrails, eval, prompt injection) through short working sessions on the prototype, not lectures. Agree with compliance on what "advice" means and who signs off. Build the golden set (the 13-case set is the seed) and the CI eval gate. Ship the deterministic parts first: entitlements, tools, number maths, templates.
 - **Days 31-60, pilot in shadow.** Add retrieval and the model behind the validator. A few portfolio managers use it while a person checks every answer. Each miss becomes a test case. Add observability and the audit log.
 - **Days 61-90, limited rollout.** Pilot with a small group of managers, internal only, with the composer switchable off. Review weekly. Run a red-team session with compliance.
 
 **Day-90 success, stated up front:**
-- The eval gate runs on every change and is green; numbers 100% correct on the set, zero advice leaks, zero cross-customer reads on denial cases.
+- The CI eval gate runs on every change and is green; numbers 100% correct on the set, zero advice leaks, zero cross-customer reads on denial cases.
 - Managers use it for real questions and the thumbs-down rate is tracked and falling.
 - At least two team members can explain and extend the pipeline without me.
 - A written go/no-go for client-facing use exists, with thresholds agreed by compliance.
@@ -58,4 +58,4 @@ AI-written code is welcome and treated like code from any new teammate: useful, 
 - **Security scan and secrets hygiene.** Dependency and static scanning in CI; no secrets, customer data or real portfolio data in prompts or in the repo. Why: assistants add dependencies and copy patterns without checking them.
 - **Disclose AI use in the PR.** Mark what was AI-assisted; high-risk areas (access checks, number maths, validator, guardrails) get a second reviewer. Why: reviewers should know where to look hardest, and it keeps us honest.
 
-**Process.** The golden set and the CI gate protect against AI changes the same way as human ones. I would revisit the rules after a quarter based on defects found in review.
+**Process.** The golden set and the CI eval gate protect against AI changes the same way as human ones. I would revisit the rules after a quarter based on defects found in review.

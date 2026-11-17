@@ -116,4 +116,4 @@ The principle: buy the undifferentiated infrastructure; build what decides who s
 
 - **Implemented in the prototype** (offline unit tests + the 13-case eval): access check, advice gate, router with fallback, retrieval with quarantine, number tools, templates, validator, `FakeModel`. The Anthropic adapter (Haiku) was exercised **live** only in a few small manual calls, not by the automated eval.
 - **Demo only:** a local Hebrew/English page (plain HTML). The production front end is React.
-- **Designed only, nothing deployed:** Cognito/OIDC, Aurora, Bedrock, Guardrails, OpenSearch/pgvector, embeddings and role-filtered search, S3 ingest, audit store, CloudWatch/X-Ray, CI gate.
+- **Designed only, nothing deployed:** Cognito/OIDC, Aurora, Bedrock, Guardrails, OpenSearch/pgvector, embeddings and role-filtered search, S3 ingest, audit store, CloudWatch/X-Ray, CI eval gate.
